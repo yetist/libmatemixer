@@ -33,6 +33,8 @@ const gchar *mate_mixer_app_info_get_name    (MateMixerAppInfo *info);
 const gchar *mate_mixer_app_info_get_id      (MateMixerAppInfo *info);
 const gchar *mate_mixer_app_info_get_version (MateMixerAppInfo *info);
 const gchar *mate_mixer_app_info_get_icon    (MateMixerAppInfo *info);
+guint32      mate_mixer_app_info_get_index   (MateMixerAppInfo *info);
+guint32      mate_mixer_app_info_get_source  (MateMixerAppInfo *info);
 
 G_END_DECLS
 

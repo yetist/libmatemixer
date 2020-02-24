@@ -102,6 +102,7 @@ pulse_sink_input_new (PulseConnection          *connection,
 
     if (info->client != PA_INVALID_INDEX) {
         app_info = _mate_mixer_app_info_new ();
+        _mate_mixer_app_info_set_index (app_info, info->index);
 
         role = MATE_MIXER_STREAM_CONTROL_ROLE_APPLICATION;
 

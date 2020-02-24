@@ -26,10 +26,12 @@ G_BEGIN_DECLS
 
 struct _MateMixerAppInfo
 {
-    gchar *name;
-    gchar *id;
-    gchar *version;
-    gchar *icon;
+    gchar   *name;
+    gchar   *id;
+    gchar   *version;
+    gchar   *icon;
+    guint32  index;
+    guint32  source;
 };
 
 MateMixerAppInfo *_mate_mixer_app_info_new         (void);
@@ -42,6 +44,10 @@ void              _mate_mixer_app_info_set_version (MateMixerAppInfo *info,
                                                     const gchar      *version);
 void              _mate_mixer_app_info_set_icon    (MateMixerAppInfo *info,
                                                     const gchar      *icon);
+void              _mate_mixer_app_info_set_index   (MateMixerAppInfo *info,
+                                                    guint32           index);
+void              _mate_mixer_app_info_set_source  (MateMixerAppInfo *info,
+                                                    guint32           source);
 
 MateMixerAppInfo *_mate_mixer_app_info_copy        (MateMixerAppInfo *info);
 void              _mate_mixer_app_info_free        (MateMixerAppInfo *info);

@@ -101,6 +101,7 @@ pulse_source_output_new (PulseConnection             *connection,
 
     if (info->client != PA_INVALID_INDEX) {
         app_info = _mate_mixer_app_info_new ();
+        _mate_mixer_app_info_set_source  (app_info, info->source);
 
         role = MATE_MIXER_STREAM_CONTROL_ROLE_APPLICATION;
 

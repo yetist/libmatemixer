@@ -1102,6 +1102,26 @@ pulse_connection_move_sink_input (PulseConnection *connection,
 }
 
 gboolean
+pulse_connection_move_sink_input_name (PulseConnection *connection,
+                                       guint32          index,
+                                       const gchar *sink_name)
+{
+    pa_operation *op;
+
+    g_return_val_if_fail (PULSE_IS_CONNECTION (connection), FALSE);
+
+    if (connection->priv->state != PULSE_CONNECTION_CONNECTED)
+        return FALSE;
+
+    op = pa_context_move_sink_input_by_name (connection->priv->context,
+                                             index,
+                                             sink_name,
+                                             NULL, NULL);
+
+    return process_pulse_operation (connection, op);
+}
+
+gboolean
 pulse_connection_move_source_output (PulseConnection *connection,
                                      guint32          index,
                                      guint32          source_index)
@@ -1117,6 +1137,26 @@ pulse_connection_move_source_output (PulseConnection *connection,
                                                  index,
                                                  source_index,
                                                  NULL, NULL);
+
+    return process_pulse_operation (connection, op);
+}
+
+gboolean
+pulse_connection_move_source_output_name (PulseConnection *connection,
+                                          guint32          index,
+                                          const gchar     *source_name)
+{
+    pa_operation *op;
+
+    g_return_val_if_fail (PULSE_IS_CONNECTION (connection), FALSE);
+
+    if (connection->priv->state != PULSE_CONNECTION_CONNECTED)
+        return FALSE;
+
+    op = pa_context_move_source_output_by_name (connection->priv->context,
+                                                index,
+                                                source_name,
+                                                NULL, NULL);
 
     return process_pulse_operation (connection, op);
 }

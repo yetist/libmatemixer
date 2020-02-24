@@ -95,6 +95,10 @@ gboolean                mate_mixer_context_set_app_version           (MateMixerC
                                                                       const gchar          *app_version);
 gboolean                mate_mixer_context_set_app_icon              (MateMixerContext     *context,
                                                                       const gchar          *app_icon);
+gboolean                mate_mixer_context_set_app_index             (MateMixerContext     *context,
+                                                                      guint32               index);
+gboolean                mate_mixer_context_set_app_source            (MateMixerContext     *context,
+                                                                      guint32               source);
 gboolean                mate_mixer_context_set_server_address        (MateMixerContext     *context,
                                                                       const gchar          *address);
 

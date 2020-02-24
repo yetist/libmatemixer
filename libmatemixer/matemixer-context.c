@@ -87,6 +87,8 @@ enum {
     PROP_APP_ID,
     PROP_APP_VERSION,
     PROP_APP_ICON,
+    PROP_APP_INDEX,
+    PROP_APP_SOURCE,
     PROP_SERVER_ADDRESS,
     PROP_STATE,
     PROP_DEFAULT_INPUT_STREAM,
@@ -221,6 +223,22 @@ mate_mixer_context_class_init (MateMixerContextClass *klass)
                              "App icon",
                              "Application XDG icon name",
                              NULL,
+                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+    properties[PROP_APP_INDEX] =
+        g_param_spec_uint ("app-index",
+                             "App index",
+                             "Application index",
+                             0,
+                             G_MAXUINT32,
+                             0,
+                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+    properties[PROP_APP_SOURCE] =
+        g_param_spec_uint ("app-source",
+                             "App source",
+                             "Application source",
+                             0,
+                             G_MAXUINT32,
+                             0,
                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
     /**
@@ -455,6 +473,12 @@ mate_mixer_context_get_property (GObject    *object,
     case PROP_APP_ICON:
         g_value_set_string (value, mate_mixer_app_info_get_icon (context->priv->app_info));
         break;
+    case PROP_APP_INDEX:
+        g_value_set_uint (value, mate_mixer_app_info_get_index (context->priv->app_info));
+        break;
+    case PROP_APP_SOURCE:
+        g_value_set_uint (value, mate_mixer_app_info_get_source (context->priv->app_info));
+        break;
     case PROP_SERVER_ADDRESS:
         g_value_set_string (value, context->priv->server_address);
         break;
@@ -496,6 +520,12 @@ mate_mixer_context_set_property (GObject      *object,
         break;
     case PROP_APP_ICON:
         mate_mixer_context_set_app_icon (context, g_value_get_string (value));
+        break;
+    case PROP_APP_INDEX:
+        mate_mixer_context_set_app_index (context, g_value_get_uint (value));
+        break;
+    case PROP_APP_SOURCE:
+        mate_mixer_context_set_app_source (context, g_value_get_uint (value));
         break;
     case PROP_SERVER_ADDRESS:
         mate_mixer_context_set_server_address (context, g_value_get_string (value));
@@ -731,6 +761,37 @@ mate_mixer_context_set_app_icon (MateMixerContext *context, const gchar *app_ico
     _mate_mixer_app_info_set_icon (context->priv->app_info, app_icon);
 
     g_object_notify_by_pspec (G_OBJECT (context), properties[PROP_APP_ICON]);
+    return TRUE;
+}
+
+gboolean
+mate_mixer_context_set_app_index (MateMixerContext *context, guint32 index)
+{
+    g_return_val_if_fail (MATE_MIXER_IS_CONTEXT (context), FALSE);
+
+    if (context->priv->state == MATE_MIXER_STATE_CONNECTING ||
+        context->priv->state == MATE_MIXER_STATE_READY)
+        return FALSE;
+
+    _mate_mixer_app_info_set_index (context->priv->app_info, index);
+
+    g_object_notify_by_pspec (G_OBJECT (context), properties[PROP_APP_INDEX]);
+    return TRUE;
+}
+
+
+gboolean
+mate_mixer_context_set_app_source (MateMixerContext *context, guint32 source)
+{
+    g_return_val_if_fail (MATE_MIXER_IS_CONTEXT (context), FALSE);
+
+    if (context->priv->state == MATE_MIXER_STATE_CONNECTING ||
+        context->priv->state == MATE_MIXER_STATE_READY)
+        return FALSE;
+
+    _mate_mixer_app_info_set_source (context->priv->app_info, source);
+
+    g_object_notify_by_pspec (G_OBJECT (context), properties[PROP_APP_SOURCE]);
     return TRUE;
 }
 

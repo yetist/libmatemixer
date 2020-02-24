@@ -105,6 +105,22 @@ mate_mixer_app_info_get_icon (MateMixerAppInfo *info)
     return info->icon;
 }
 
+guint32
+mate_mixer_app_info_get_index (MateMixerAppInfo *info)
+{
+    g_return_val_if_fail (info != NULL, 0);
+
+    return info->index;
+}
+
+guint32
+mate_mixer_app_info_get_source (MateMixerAppInfo *info)
+{
+    g_return_val_if_fail (info != NULL, 0);
+
+    return info->source;
+}
+
 /**
  * _mate_mixer_app_info_new:
  *
@@ -184,6 +200,22 @@ _mate_mixer_app_info_set_icon (MateMixerAppInfo *info, const gchar *icon)
     g_free (info->icon);
 
     info->icon = g_strdup (icon);
+}
+
+void
+_mate_mixer_app_info_set_index (MateMixerAppInfo *info, guint32 index)
+{
+    g_return_if_fail (info != NULL);
+
+    info->index = index;
+}
+
+void
+_mate_mixer_app_info_set_source (MateMixerAppInfo *info, guint32 source)
+{
+    g_return_if_fail (info != NULL);
+
+    info->source = source;
 }
 
 /**

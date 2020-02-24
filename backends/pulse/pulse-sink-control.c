@@ -124,6 +124,8 @@ static gboolean
 pulse_sink_control_set_mute (PulseStreamControl *psc, gboolean mute)
 {
     g_return_val_if_fail (PULSE_IS_SINK_CONTROL (psc), FALSE);
+    g_print("sink control lib, index=%d\n",
+                                           pulse_stream_control_get_stream_index (psc));
 
     return pulse_connection_set_sink_mute (pulse_stream_control_get_connection (psc),
                                            pulse_stream_control_get_stream_index (psc),

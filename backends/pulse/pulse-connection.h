@@ -188,9 +188,15 @@ gboolean             pulse_connection_suspend_source           (PulseConnection 
 gboolean             pulse_connection_move_sink_input          (PulseConnection                  *connection,
                                                                 guint32                           index,
                                                                 guint32                           sink_index);
+gboolean             pulse_connection_move_sink_input_name     (PulseConnection                  *connection,
+                                                                guint32                           index,
+                                                                const gchar                      *sink_name);
 gboolean             pulse_connection_move_source_output       (PulseConnection                  *connection,
                                                                 guint32                           index,
                                                                 guint32                           source_index);
+gboolean             pulse_connection_move_source_output_name  (PulseConnection                  *connection,
+                                                                guint32                           index,
+                                                                const gchar                      *source_name);
 
 gboolean             pulse_connection_kill_sink_input          (PulseConnection                  *connection,
                                                                 guint32                           index);
